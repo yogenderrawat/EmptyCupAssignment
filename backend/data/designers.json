@@ -1,0 +1,22 @@
+[
+  {
+    "id": "designer1",
+    "name": "Epic Designs",
+    "rating": 4,
+    "description": "Team of 4 designers from Bangalore with 4 years experience.",
+    "projects": 57,
+    "years": 4,
+    "price": "$$",
+    "contacts": ["+91 984532853", "+91 984532854"]
+  },
+  {
+    "id": "designer2",
+    "name": "Studio - D3",
+    "rating": 4,
+    "description": "Studio of 3 designers from Pune with 6 years experience.",
+    "projects": 43,
+    "years": 6,
+    "price": "$$$",
+    "contacts": ["+91 9123456789", "+91 9765432101"]
+  }
+]
