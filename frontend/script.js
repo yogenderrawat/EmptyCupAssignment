@@ -2,7 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const designerList = document.getElementById("designerList");
   const filterBtn = document.getElementById("filter-shortlisted");
 
-  fetch("http://127.0.0.1:5000/api/designers")
+  fetch("https://emptycup-api.onrender.com/api/designers")
+
     .then(res => res.json())
     .then(data => {
       data.forEach(designer => {
