@@ -3,10 +3,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const filterBtn = document.getElementById("filter-shortlisted");
 
   fetch("https://emptycup-api.onrender.com/api/designers")
-
-
     .then(res => res.json())
     .then(data => {
+      console.log("Fetched data:", data);
+
       data.forEach(designer => {
         const card = document.createElement("section");
         card.className = "designer-card";
@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
         card.innerHTML = `
           <div class="card-header">
             <h2 class="designer-title">${designer.name}</h2>
-            
+            <img src="./assets/icons/options.svg" alt="Options" class="card-options">
           </div>
           <div class="rating">${"★".repeat(designer.rating)}${"☆".repeat(5 - designer.rating)}</div>
           <p class="description">${designer.description}</p>
@@ -39,6 +39,10 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       attachShortlistHandlers();
+    })
+    .catch(err => {
+      console.error("Failed to fetch designers:", err);
+      designerList.innerHTML = `<p style="color:red;">Unable to load designers. Please try again later.</p>`;
     });
 
   function attachShortlistHandlers() {
@@ -58,17 +62,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const card = button.closest(".designer-card");
         const isShortlisted = card.dataset.shortlisted === "true";
 
-        // Toggle shortlist state
         const newState = (!isShortlisted).toString();
         card.dataset.shortlisted = newState;
 
-        // Find the specific image to update
         const img = button.querySelector(".shortlist-icon");
         img.src = newState === "true"
           ? "./assets/icons/shortlist-filled.svg"
           : "./assets/icons/shortlist.svg";
 
-        // Only apply filter if filter is active
         if (filterBtn.classList.contains("active")) {
           applyFilter();
         }
