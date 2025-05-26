@@ -2,32 +2,28 @@ document.addEventListener("DOMContentLoaded", () => {
   const designerList = document.getElementById("designerList");
   const filterBtn = document.getElementById("filter-shortlisted");
 
-  // Attempt to fetch data from the live API
-  fetch("https://emptycup-api.onrender.com/api/designers")
+  fetch("http://127.0.0.1:5000/api/designers")
     .then(res => {
       if (!res.ok) {
-        throw new Error("Network response was not ok");
+        throw new Error('Network response was not OK');
       }
       return res.json();
     })
     .then(data => {
+      console.log("Fetched data:", data);
       renderDesigners(data);
     })
     .catch(err => {
-      console.error("Failed to fetch from live API, attempting local fallback:", err);
-      // Fallback to local JSON file
+      console.error("Failed to fetch designers:", err);
+      // Fallback to local data
       fetch("./data/designers.json")
-        .then(res => {
-          if (!res.ok) {
-            throw new Error("Local fallback failed");
-          }
-          return res.json();
+        .then(res => res.json())
+        .then(localData => {
+          console.log("Using local data:", localData);
+          renderDesigners(localData);
         })
-        .then(data => {
-          renderDesigners(data);
-        })
-        .catch(err => {
-          console.error("Failed to fetch designers from both live API and local fallback:", err);
+        .catch(localErr => {
+          console.error("Failed to load local data:", localErr);
           designerList.innerHTML = `<p style="color:red;">Unable to load designers. Please try again later.</p>`;
         });
     });
