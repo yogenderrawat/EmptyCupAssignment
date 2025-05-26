@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   fetch("https://emptycup-api.onrender.com/api/designers")
 
+
     .then(res => res.json())
     .then(data => {
       data.forEach(designer => {
